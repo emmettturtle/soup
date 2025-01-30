@@ -4,7 +4,12 @@ export interface NewsItem {
   publish_date: Date
   author: string
   feed: number
+  link: string
+  publication: string
 }
+
+
+//sample data no longer formatted correctly 
 export const localNews: NewsItem[] = [
   {
     id: "1",

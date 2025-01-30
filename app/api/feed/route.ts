@@ -8,10 +8,11 @@ export async function GET() {
     try {
         const response = await getJson({
             engine: "google_news",
-            api_key: API_KEY, // Get your API_KEY from https://serpapi.com/manage-api-key
-            q: "current events",
+            api_key: API_KEY,
+            // q: "",
             hl: "en",
-            gl: "us"
+            gl: "us",
+            topic_token: "CAAqJggKIiBDQkFTRWdvSUwyMHZNRFZxYUdjU0FtVnVHZ0pWVXlnQVAB"
         });
         return NextResponse.json(response, { status: 200 });
     } catch (error) {

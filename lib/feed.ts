@@ -7,6 +7,9 @@ interface NewsItem {
     publish_date: Date
     author: string
     feed: number
+    link: string
+    publication: string
+    // id: number | null ??
 }
 
 export async function createGlobalFeed(): Promise<NewsItem[]> {
@@ -25,16 +28,18 @@ export async function createGlobalFeed(): Promise<NewsItem[]> {
             .select()
             
         serpData["news_results"].forEach(article => {
-            const dateObj = new Date(article.date);
-            const formattedDate = new Intl.DateTimeFormat('en-US', { month: 'short', day: '2-digit' }).format(dateObj);
-            const author = article.source?.authors?.[0] ? article.source.authors[0] : "";
+            const dateObj = new Date(article.highlight.date);
+            // const formattedDate = new Intl.DateTimeFormat('en-US', { month: 'short', day: '2-digit' }).format(dateObj);
+            const author = article.highlight.source?.authors?.[0] ? article.highlight.source.authors[0] : "";
 
             supa.push({
-                content: article.title,
-                image_url: article.thumbnail,
+                content: article.highlight.title,
+                image_url: article.highlight.thumbnail,
                 publish_date: dateObj,
                 author: author,
-                feed: feedData[0].id
+                feed: feedData[0].id,
+                link: article.highlight.link,
+                publication: article.highlight.source.name
             });
 
         });

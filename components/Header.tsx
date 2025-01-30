@@ -15,7 +15,7 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
   return (
     <header className="sticky top-0 z-10 bg-background border-b border-border">
       <div className="container mx-auto px-4 py-3">
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-center">
           <Link href="/" className="text-2xl font-bold">
             <span className="text-red-500">s</span>
             <span className="text-yellow-500">o</span>
@@ -43,7 +43,7 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
             </ul>
           </nav>
         </div>
-        <div className="flex border-t border-border pt-2">
+        {/* <div className="flex border-t border-border pt-2">
           <Button
             variant={activeTab === "local" ? "default" : "ghost"}
             className="flex-1 rounded-none"
@@ -58,7 +58,7 @@ export default function Header({ activeTab, setActiveTab }: HeaderProps) {
           >
             Global
           </Button>
-        </div>
+        </div> */}
       </div>
     </header>
   )
