@@ -3,7 +3,7 @@ import { supabase } from "./supabase";
 interface NewsItem {
     content: string;
     image_url: string;
-    publish_date: Date;
+    publish_date: Date | null;
     author: string;
     feed: number;
     link: string;
@@ -30,19 +30,23 @@ export async function createGlobalFeed(): Promise<NewsItem[]> {
             throw new Error('Failed to insert into NewsFeed or feedData is null');
         }
 
-        serpData["news_results"].forEach((article: any) => {
-            const dateObj = new Date(article.highlight.date);
-            const author = article.highlight.source?.authors?.[0] ? article.highlight.source.authors[0] : "";
+        console.log(serpData["news_results"]);
 
-            supa.push({
-                content: article.highlight.title,
-                image_url: article.highlight.thumbnail,
-                publish_date: dateObj,
-                author: author,
-                feed: feedData[0].id,
-                link: article.highlight.link,
-                publication: article.highlight.source.name
-            });
+        serpData["news_results"].forEach((article: any) => {
+            if (article.highlight) { // Check if article has a highlight property
+                const dateObj = new Date(article.highlight.date);
+                const author = article.highlight.source?.authors?.[0] ? article.highlight.source.authors[0] : "";
+
+                supa.push({
+                    content: article.highlight.title,
+                    image_url: article.highlight.thumbnail,
+                    publish_date: dateObj,
+                    author: author,
+                    feed: feedData[0].id,
+                    link: article.highlight.link,
+                    publication: article.highlight.source.name
+                });
+            }
         });
 
         const { data: postData, error: postError } = await supabase
