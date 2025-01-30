@@ -27,7 +27,7 @@ export async function createGlobalFeed(): Promise<NewsItem[]> {
             .insert([{}])
             .select()
             
-        serpData["news_results"].forEach(article => {
+        serpData["news_results"].forEach((article: any) => {
             const dateObj = new Date(article.highlight.date);
             // const formattedDate = new Intl.DateTimeFormat('en-US', { month: 'short', day: '2-digit' }).format(dateObj);
             const author = article.highlight.source?.authors?.[0] ? article.highlight.source.authors[0] : "";
