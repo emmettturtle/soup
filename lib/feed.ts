@@ -1,15 +1,14 @@
 import { supabase } from "./supabase";
 
-
 interface NewsItem {
-    content: string
-    image_url: string
-    publish_date: Date
-    author: string
-    feed: number
-    link: string
-    publication: string
-    id: number 
+    content: string;
+    image_url: string;
+    publish_date: Date;
+    author: string;
+    feed: number;
+    link: string;
+    publication: string;
+    id: number;
 }
 
 export async function createGlobalFeed(): Promise<NewsItem[]> {
@@ -25,15 +24,14 @@ export async function createGlobalFeed(): Promise<NewsItem[]> {
         const { data: feedData, error: feedError } = await supabase
             .from('NewsFeed')
             .insert([{}])
-            .select()
+            .select();
 
         if (feedError || !feedData || feedData.length === 0) {
             throw new Error('Failed to insert into NewsFeed or feedData is null');
         }
-        
+
         serpData["news_results"].forEach((article: any) => {
             const dateObj = new Date(article.highlight.date);
-            // const formattedDate = new Intl.DateTimeFormat('en-US', { month: 'short', day: '2-digit' }).format(dateObj);
             const author = article.highlight.source?.authors?.[0] ? article.highlight.source.authors[0] : "";
 
             supa.push({
@@ -45,21 +43,21 @@ export async function createGlobalFeed(): Promise<NewsItem[]> {
                 link: article.highlight.link,
                 publication: article.highlight.source.name
             });
-
         });
 
         const { data: postData, error: postError } = await supabase
             .from('NewsPost')
             .insert(supa)
-            .select()
+            .select();
 
-        return postData;
+        if (postError) {
+            throw new Error('Failed to insert into NewsPost');
+        }
 
+        return postData as NewsItem[];
 
     } catch (error) {
         console.error('Failed to fetch global feed:', error);
         return [];
     }
-
-
 }
