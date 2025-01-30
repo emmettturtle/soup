@@ -1,18 +1,10 @@
 export interface NewsItem {
-  id: string
   content: string
-  imageUrl: string
-  date: string
-  author: {
-    name: string
-    publication: string
-    avatar: string
-    verified?: boolean
-  }
-  likes: number
-  comments: number
+  image_url: string
+  publish_date: Date
+  author: string
+  feed: number
 }
-
 export const localNews: NewsItem[] = [
   {
     id: "1",

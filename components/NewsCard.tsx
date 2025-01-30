@@ -1,77 +1,70 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Heart, MessageCircle, Repeat2, BarChart2, Bookmark, Share, MoreHorizontal } from "lucide-react"
 import type { NewsItem } from "@/lib/sample-data"
 
-export default function NewsCard({ id, content, imageUrl, date, author, likes, comments }: NewsItem) {
+export default function NewsCard({ content, image_url, publish_date, author, feed }: NewsItem) {
   return (
-    <article className="p-3 bg-background hover:bg-accent/50 transition-colors">
-      <div className="flex items-start gap-2">
-        {/* Author Section */}
-        <Avatar className="w-8 h-8">
-          <AvatarImage src={author.avatar} alt={author.name} />
-          <AvatarFallback>{author.name.charAt(0)}</AvatarFallback>
-        </Avatar>
-
-        <div className="flex-1 min-w-0">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-1">
-            <div className="flex items-center gap-1 text-xs">
-              <span className="font-semibold hover:underline">{author.publication}</span>
-              <span className="text-muted-foreground">·</span>
-              <span className="text-muted-foreground">{author.name}</span>
-              <span className="text-muted-foreground">·</span>
-              <span className="text-muted-foreground">{date}</span>
-            </div>
-            <Button variant="ghost" size="icon" className="rounded-full h-6 w-6 -mr-2">
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
+    <Card className="border-t border-border last:border-b">
+      <CardContent className="p-4">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2 text-sm">
+            <span className="font-semibold">New York Times</span>
+            <span className="text-muted-foreground">·</span>
+            <span className="text-muted-foreground">{author}</span>
+            <span className="text-muted-foreground">·</span>
+            <span className="text-muted-foreground">{publish_date}</span>
           </div>
-
-          {/* Content */}
-          <Link href={`/news/${id}`}>
-            <div className="mt-1">
-              <p className="text-sm text-foreground">{content}</p>
-              {imageUrl && (
-                <div className="relative mt-2 aspect-[16/9] rounded-md overflow-hidden">
-                  <Image src={imageUrl || "/placeholder.svg"} alt="Post image" fill className="object-cover" />
-                </div>
-              )}
+          <Button variant="ghost" size="icon" className="rounded-full h-8 w-8">
+            <MoreHorizontal className="h-5 w-5" />
+          </Button>
+        </div>
+        <Link href={`/news/${feed}`}>
+          <p className="text-sm text-foreground mb-4">{content}</p>
+          {image_url && (
+            <div className="relative h-64 mb-4">
+              <Image
+                src={image_url || "/placeholder.svg"}
+                alt="Post image"
+                fill
+                style={{ objectFit: "cover" }}
+                className="rounded-md"
+              />
             </div>
-          </Link>
-
-          {/* Engagement Metrics */}
-          <div className="flex items-center justify-between mt-2 max-w-md">
-            <Button variant="ghost" size="sm" className="hover:text-blue-600 p-0 h-8">
-              <MessageCircle className="h-4 w-4 mr-1" />
-              <span className="text-xs">{comments}</span>
+          )}
+        </Link>
+      </CardContent>
+      <CardFooter className="p-4 pt-0">
+        <div className="flex items-center justify-between w-full">
+          <Button variant="ghost" size="sm" className="text-muted-foreground">
+            <MessageCircle className="h-5 w-5 mr-1" />
+            {/* <span>{comments}</span> */}
+          </Button>
+          <Button variant="ghost" size="sm" className="text-muted-foreground">
+            <Repeat2 className="h-5 w-5 mr-1" />
+            {/* <span>0</span> */}
+          </Button>
+          <Button variant="ghost" size="sm" className="text-muted-foreground">
+            <Heart className="h-5 w-5 mr-1" />
+            {/* <span>{likes}</span> */}
+          </Button>
+          <Button variant="ghost" size="sm" className="text-muted-foreground">
+            <BarChart2 className="h-5 w-5 mr-1" />
+            {/* <span>0</span> */}
+          </Button>
+          <div className="flex items-center gap-1">
+            <Button variant="ghost" size="sm" className="text-muted-foreground p-0 h-8 w-8">
+              <Bookmark className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="sm" className="hover:text-green-600 p-0 h-8">
-              <Repeat2 className="h-4 w-4 mr-1" />
-              <span className="text-xs">0</span>
+            <Button variant="ghost" size="sm" className="text-muted-foreground p-0 h-8 w-8">
+              <Share className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="sm" className="hover:text-red-600 p-0 h-8">
-              <Heart className="h-4 w-4 mr-1" />
-              <span className="text-xs">{likes}</span>
-            </Button>
-            <Button variant="ghost" size="sm" className="hover:text-blue-600 p-0 h-8">
-              <BarChart2 className="h-4 w-4 mr-1" />
-              <span className="text-xs">0</span>
-            </Button>
-            <div className="flex items-center gap-1">
-              <Button variant="ghost" size="sm" className="hover:text-blue-600 p-0 h-8 w-8">
-                <Bookmark className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="sm" className="hover:text-blue-600 p-0 h-8 w-8">
-                <Share className="h-4 w-4" />
-              </Button>
-            </div>
           </div>
         </div>
-      </div>
-    </article>
+      </CardFooter>
+    </Card>
   )
 }
 
