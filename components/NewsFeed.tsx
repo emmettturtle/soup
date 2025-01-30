@@ -9,11 +9,9 @@ import { createGlobalFeed } from "@/lib/feed"
 
 interface NewsFeedProps {
   feedType: "local" | "global"
-  localNews: NewsItem[]
-  globalNews: NewsItem[]
 }
 
-export default function NewsFeed({ feedType, localNews, globalNews }: NewsFeedProps) {
+export default function NewsFeed({ feedType }: NewsFeedProps) {
   const [feed, setFeed] = useState<NewsItem[]>([])
   // const newsItems = feedType === "local" ? localNews : feed
 
