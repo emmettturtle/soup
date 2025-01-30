@@ -26,7 +26,11 @@ export async function createGlobalFeed(): Promise<NewsItem[]> {
             .from('NewsFeed')
             .insert([{}])
             .select()
-            
+
+        if (feedError || !feedData || feedData.length === 0) {
+            throw new Error('Failed to insert into NewsFeed or feedData is null');
+        }
+        
         serpData["news_results"].forEach((article: any) => {
             const dateObj = new Date(article.highlight.date);
             // const formattedDate = new Intl.DateTimeFormat('en-US', { month: 'short', day: '2-digit' }).format(dateObj);
