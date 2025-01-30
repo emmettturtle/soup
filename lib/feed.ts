@@ -9,7 +9,7 @@ interface NewsItem {
     feed: number
     link: string
     publication: string
-    // id: number | null ??
+    id: number 
 }
 
 export async function createGlobalFeed(): Promise<NewsItem[]> {
@@ -20,7 +20,7 @@ export async function createGlobalFeed(): Promise<NewsItem[]> {
         }
         const serpData = await response.json();
 
-        const supa: NewsItem[] = [];
+        const supa: any[] = [];
 
         const { data: feedData, error: feedError } = await supabase
             .from('NewsFeed')

@@ -6,6 +6,7 @@ export interface NewsItem {
   feed: number
   link: string
   publication: string
+  id: number
 }
 
 
