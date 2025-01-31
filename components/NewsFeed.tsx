@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react"
 import NewsCard from "./NewsCard"
-import type { NewsItem } from "@/lib/sample-data"
+import type { NewsItem } from "@/lib/feed"
 // import { localNews, globalNews } from "@/lib/sample-data"
 import { createGlobalFeed } from "@/lib/feed"
 

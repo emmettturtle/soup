@@ -1,9 +1,9 @@
 import { supabase } from "./supabase";
 
-interface NewsItem {
+export interface NewsItem {
     content: string;
     image_url: string;
-    publish_date: Date | null;
+    publish_date: Date;
     author: string;
     feed: number;
     link: string;
