@@ -75,14 +75,15 @@ export default function CommunityPage() {
     <main className="min-h-screen flex flex-col bg-background">
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold mb-6">{activeTab === 'local' ? 'Local' : 'Global'} Community</h1>
-        <div className="space-y-4">
+        <h1 className="text-2xl font-bold mb-6">coming soon . . . </h1>
+        {/* <h1 className="text-2xl font-bold mb-6">{activeTab === 'local' ? 'Local' : 'Global'} Community</h1> */}
+        {/* <div className="space-y-4">
           {(activeTab === 'local' ? localPosts : globalPosts).map((post) => (
             <PostCard key={post.id} {...post} />
           ))}
-        </div>
+        </div> */}
       </div>
-      <CreatePostButton />
+      {/* <CreatePostButton /> */}
     </main>
   )
 }

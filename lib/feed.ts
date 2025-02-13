@@ -61,7 +61,46 @@ export async function createGlobalFeed(): Promise<NewsItem[]> {
         return postData as NewsItem[];
 
     } catch (error) {
-        console.error('Failed to fetch global feed:', error);
+        console.error('Failed to create global feed:', error);
+        return [];
+    }
+}
+
+
+export async function getFeed(): Promise<NewsItem[]> {
+    try {
+        const { data: feedData, error } = await supabase
+            .from('NewsFeed')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(1); // Adjust the limit as needed
+
+        if (error) {
+            throw new Error('Failed to fetch feed');
+        }
+
+        const latestFeed = feedData[0];
+        const createdAt = new Date(latestFeed.created_at);
+        const now = new Date();
+        const hoursDifference = (now.getTime() - createdAt.getTime()) / (1000 * 60 * 60);
+
+        if (hoursDifference > 12) {
+            return await createGlobalFeed();
+        } else {
+            // get news posts of feed
+            const { data: posts, error } = await supabase
+            .from('NewsPost')
+            .select('*')
+            .eq('feed', feedData[0].id)
+
+            if (error) {
+                throw new Error('Failed to fetch feed');
+            }
+
+            return posts as NewsItem[];
+        }
+    } catch (error) {
+        console.error('Failed to fetch feed:', error);
         return [];
     }
 }

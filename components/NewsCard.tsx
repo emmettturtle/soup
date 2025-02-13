@@ -28,7 +28,7 @@ export default function NewsCard({ content, image_url, publish_date, author, fee
     <Card className="border-t border-border last:border-b">
       <CardContent className="py-2 px-4">
         <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2 text-xs">
+          <div className="flex items-center gap-2 text-sm">
             <span className="font-semibold">{publication}</span>
             {author && (
               <>
@@ -44,7 +44,7 @@ export default function NewsCard({ content, image_url, publish_date, author, fee
           </Button>
         </div>
         <Link href={link} target="_blank" rel="noopener noreferrer">
-          <p className="text-xs text-foreground mb-4">{content}</p>
+          <p className="text-sm text-foreground mb-4">{content}</p>
           {image_url && (
             <div className="relative h-52 mb-0">
               <Image
