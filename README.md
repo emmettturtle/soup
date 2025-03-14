@@ -4,7 +4,7 @@
 
 Soup is a community-oriented platform designed to help users understand what's happening in their local and global communities. The current iteration includes a custom news aggregation technology that creates a personalized news feed. A location-based social media component called "Community" is currently under development.
 
-The platform aims to bridge the gap between global news and local events, providing users with relevant information that matters to them based on their interests and location.
+The platform aims to bridge the gap between global news and local events, providing users with relevant information that matters to them based on their interests and location. Check it out [here](https://soup-tau.vercel.app/).
 
 ## Tech Stack
 
