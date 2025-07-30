@@ -76,7 +76,7 @@ export async function getFeed(): Promise<NewsItem[]> {
             .limit(1); // Adjust the limit as needed
 
         if (error) {
-            throw new Error('Failed to fetch feed');
+            throw new Error('Failed to fetch feed 1');
         }
 
         const latestFeed = feedData[0];
@@ -94,7 +94,7 @@ export async function getFeed(): Promise<NewsItem[]> {
             .eq('feed', feedData[0].id)
 
             if (error) {
-                throw new Error('Failed to fetch feed');
+                throw new Error('Failed to fetch feed 2');
             }
 
             return posts as NewsItem[];
